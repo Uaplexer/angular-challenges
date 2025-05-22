@@ -1,0 +1,17 @@
+<app-card [list]="store.teachers()" customClass="bg-light-red">
+  <img ngSrc="assets/img/teacher.png" width="200" height="200" />
+  <ng-template #listTemplate let-teacher>
+    <app-list-item>
+      {{ teacher.firstName }}
+      <button (click)="store.deleteOne(teacher.id)" delete-button>
+        <img class="h-5" src="assets/svg/trash.svg" alt="icon trash" />
+      </button>
+    </app-list-item>
+  </ng-template>
+  <button
+    (click)="store.addOne(addRandomTeacher())"
+    add-button
+    class="rounded-sm border border-blue-500 bg-blue-300 p-2">
+    Add
+  </button>
+</app-card>
