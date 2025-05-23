@@ -1,0 +1,20 @@
+@if (store.isLoading()) {
+  <div class="loader-overlay">
+    <mat-progress-spinner color="primary" mode="indeterminate" diameter="60" />
+  </div>
+}
+
+<h3>Todos</h3>
+@for (todo of store.todos(); track $index) {
+  <div class="container">
+    {{ todo.title }}
+    <div class="buttons-wrapper">
+      <button class="btn btn__update" (click)="store.update(todo)">
+        Update
+      </button>
+      <button class="btn btn__delete" (click)="store.delete(todo.id)">
+        Delete
+      </button>
+    </div>
+  </div>
+}
