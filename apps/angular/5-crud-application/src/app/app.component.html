@@ -1,12 +1,12 @@
-@if (store.isLoading()) {
-  <div class="loader-overlay">
-    <mat-progress-spinner color="primary" mode="indeterminate" diameter="60" />
-  </div>
-}
-
 <h3>Todos</h3>
 @for (todo of store.todos(); track $index) {
   <div class="container">
+    @if (store.todosLoadings()?.[$index]) {
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate"
+        diameter="60" />
+    }
     {{ todo.title }}
     <div class="buttons-wrapper">
       <button class="btn btn__update" (click)="store.update(todo)">

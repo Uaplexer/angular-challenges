@@ -9,7 +9,7 @@ import { baseApiUrl } from './api.const';
 @Injectable({
   providedIn: 'root',
 })
-export class FakeHttpService {
+export class TodoHttpService {
   http = inject(HttpClient);
 
   fetchTodos$(): Observable<Todo[]> {

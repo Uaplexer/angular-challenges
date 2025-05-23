@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TodoStore } from './data-access/todo.store';
+import { TodoSignalStore } from './data-access/todo.signal-store';
 
 @Component({
   imports: [CommonModule, MatProgressSpinnerModule],
@@ -10,7 +10,7 @@ import { TodoStore } from './data-access/todo.store';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  store = inject(TodoStore);
+  store = inject(TodoSignalStore);
 
   ngOnInit(): void {
     this.store.load();

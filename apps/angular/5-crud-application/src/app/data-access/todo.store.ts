@@ -1,12 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { FakeHttpService } from '../api/todo.service';
+import { TodoHttpService } from '../api/todo.service';
 import { Todo } from '../models/todo.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoStore {
-  service = inject(FakeHttpService);
+  service = inject(TodoHttpService);
 
   todos = signal<Todo[]>([]);
   isLoading = signal<boolean>(false);
