@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { patchState, signalState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap } from 'rxjs';
+import { finalize, pipe, switchMap, tap } from 'rxjs';
 import { TodoHttpService } from '../api/todo.service';
 import { Todo } from '../models/todo.model';
 
@@ -42,8 +42,8 @@ export class TodoSignalStore {
               });
             },
             error: (error) => patchState(this.state, { error: error.message }),
-            complete: () => patchState(this.state, { isLoading: false }),
           }),
+          finalize(() => patchState(this.state, { isLoading: false })),
         ),
       ),
     ),
@@ -69,10 +69,10 @@ export class TodoSignalStore {
               }
             },
             error: (error) => patchState(this.state, { error: error.message }),
-            complete: () => {
-              this.setTodoLoadingState(todo.id, false);
-              patchState(this.state, { isLoading: false });
-            },
+          }),
+          finalize(() => {
+            this.setTodoLoadingState(todo.id, false);
+            patchState(this.state, { isLoading: false });
           }),
         ),
       ),
@@ -97,10 +97,8 @@ export class TodoSignalStore {
               });
             },
             error: (error) => patchState(this.state, { error: error.message }),
-            complete: () => {
-              patchState(this.state, { isLoading: false });
-            },
           }),
+          finalize(() => patchState(this.state, { isLoading: false })),
         ),
       ),
     ),
